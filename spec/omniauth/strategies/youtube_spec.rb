@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'omniauth-google'
+require 'omniauth-youtube'
 
-describe OmniAuth::Strategies::Google do
+describe OmniAuth::Strategies::YouTube do
   def app; lambda{|env| [200, {}, ["Hello."]]} end
 
   before :each do
@@ -18,7 +18,7 @@ describe OmniAuth::Strategies::Google do
 
   subject do
     args = ['appid', 'secret', @options || {}].compact
-    OmniAuth::Strategies::Google.new(app, *args).tap do |strategy|
+    OmniAuth::Strategies::YouTube.new(app, *args).tap do |strategy|
       strategy.stub(:request) { @request }
     end
   end
@@ -41,7 +41,7 @@ describe OmniAuth::Strategies::Google do
 
   describe '#callback_path' do
     it 'has the correct callback path' do
-      subject.callback_path.should eq('/auth/google/callback')
+      subject.callback_path.should eq('/auth/youtube/callback')
     end
   end
 
