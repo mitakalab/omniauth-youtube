@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   gem.name          = "omniauth-youtube"
   gem.require_paths = ["lib"]
-  gem.version       = OmniAuth::YouTube::VERSION
+  gem.version       = OmniAuth::Youtube::VERSION
 
   gem.add_runtime_dependency 'omniauth-oauth2'
 

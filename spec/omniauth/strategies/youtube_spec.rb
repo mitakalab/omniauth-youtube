@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'omniauth-youtube'
 
-describe OmniAuth::Strategies::YouTube do
+describe OmniAuth::Strategies::Youtube do
   def app; lambda{|env| [200, {}, ["Hello."]]} end
 
   before :each do
@@ -18,7 +18,7 @@ describe OmniAuth::Strategies::YouTube do
 
   subject do
     args = ['appid', 'secret', @options || {}].compact
-    OmniAuth::Strategies::YouTube.new(app, *args).tap do |strategy|
+    OmniAuth::Strategies::Youtube.new(app, *args).tap do |strategy|
       strategy.stub(:request) { @request }
     end
   end

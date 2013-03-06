@@ -1,5 +1,5 @@
 module OmniAuth
-  module YouTube
+  module Youtube
     VERSION = "1.1"
   end
 end
