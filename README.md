@@ -1,17 +1,11 @@
-# OmniAuth Google OAuth2 Strategy customized by Mitakalab
-
-Strategy to authenticate with Google via OAuth2 in OmniAuth.
-
-Get your API key at: https://code.google.com/apis/console/
-
-For more details, read the Google docs: https://developers.google.com/accounts/docs/OAuth2
+# OmniAuth YouTube Strategy
 
 ## Installation
 
 Add to your `Gemfile`:
 
 ```ruby
-gem "omniauth-google"
+gem "omniauth-youtube"
 ```
 
 Then `bundle install`.
@@ -22,33 +16,13 @@ Here's an example, adding the middleware to a Rails app in `config/initializers/
 
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :google, ENV["GOOGLE_KEY"], ENV["GOOGLE_SECRET"]
+  provider :youtube, ENV["YOUTUBE_KEY"], ENV["YOUTUBE_SECRET"], {
+    :scope => 'userinfo.email,userinfo.profile,youtube'
+  }
 end
 ```
 
-You can now access the OmniAuth Google OAuth2 URL: `/auth/google`
-
-## Configuration
-
-You can configure several options, which you pass in to the `provider` method via a hash:
-
-* `scope`: A comma-separated list, without spaces, of permissions you want to request from the user. See the [Google OAuth 2.0 Playground](https://developers.google.com/oauthplayground/) for a full list of available permissions. Caveats:
-  * The `userinfo.email` and `userinfo.profile` scopes are used by default. By defining your own `scope`, you override these defaults. If you need these scopes, don't forget to add them yourself!
-  * Scopes starting with `https://www.googleapis.com/auth/` do not need that prefix specified. So while you should use the smaller scope `books` since that permission starts with the mentioned prefix, you should use the full scope URL `https://docs.google.com/feeds/` to access a user's docs, for example.
-* `approval_prompt`: Determines whether the user is always re-prompted for consent. It's set to `force` by default so a user sees a consent page even if he has previously allowed access a given set of scopes. Set this value to `auto` so that the user only sees the consent page the first time he authorizes a given set of scopes.
-* `access_type`: Defaults to `offline`, so a refresh token is sent to be used when the user is not present at the browser. Can be set to `online`.
-
-Here's an example of a possible configuration where the user is asked for extra permissions and is only prompted once for such permissions:
-
-```ruby
-Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :google, ENV["GOOGLE_KEY"], ENV["GOOGLE_SECRET"],
-           {
-             :scope => "userinfo.email,userinfo.profile,plus.me,http://gdata.youtube.com",
-             :approval_prompt => "auto"
-           }
-end
-```
+You can now access the OmniAuth Google OAuth2 URL: `/auth/youtube`
 
 ## Auth Hash
 
@@ -56,7 +30,7 @@ Here's an example of an authentication hash available in the callback by accessi
 
 ```ruby
 {
-    :provider => "google",
+    :provider => "youtube",
     :uid => "123456789",
     :info => {
         :name => "John Doe",
